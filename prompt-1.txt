@@ -1,0 +1,61 @@
+Create a NEW React + TypeScript component at:
+
+src/components/MortgageCalculator.tsx
+
+Requirements:
+- Default export: MortgageCalculator
+- TailwindCSS styling
+- shadcn/ui components:
+  Button from "@/components/ui/button"
+  Input from "@/components/ui/input"
+  Card from "@/components/ui/card"
+- lucide-react icon: Calculator
+- No backend calls, fully client-side.
+
+State:
+- loanAmount: string (allow commas)
+- termYears: string (default "25")
+- interestRate: string
+- showResults: boolean
+- monthlyRepayment: number
+- monthlyInterestOnly: number
+
+Helpers inside the same file:
+- parseMoney(input: string): number
+  Strip everything except digits and dot. Accept commas. Return 0 if empty.
+- formatCurrency(value:number): en-GB GBP with 2 decimals
+- formatCurrency0(value:number): en-GB GBP with 0 decimals
+- calculateMonthlyRepayment(principal:number, annualRatePct:number, years:number): number
+  r = annualRate/100/12
+  n = years*12
+  if r===0 return principal/n
+  M = P*r*(1+r)^n / ((1+r)^n - 1)
+- calculateMonthlyInterestOnly(principal:number, annualRatePct:number): number
+  return principal*(annualRatePct/100/12)
+
+UI:
+- A section container (optional) OR just a Card.
+- Use Card with:
+  className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8"
+- Two-column layout on lg:
+  left = form, right = results panel.
+- Inputs:
+  Loan amount (text)
+  Term years (number min 1 max 99)
+  Interest rate (number min 0 max 100 step 0.01)
+- Calculate button:
+  className="bg-gold-accent text-primary"
+  disabled if any input empty or principal <= 0
+- When showResults true:
+  show:
+  "If you borrowed £X at Y% for Z years…"
+  big monthly repayment: formatCurrency(monthlyRepayment) + "/ month"
+  interest-only: formatCurrency(monthlyInterestOnly) + "/ month"
+  "Recalculate" button to run calculation again
+- When showResults false:
+  show a placeholder with Calculator icon and instructions.
+
+Results panel styling:
+className="bg-gradient-to-br from-gold-accent/10 to-primary/10 rounded-2xl p-8 border border-gold-accent/20"
+
+Return ONLY the full code for src/components/MortgageCalculator.tsx.
