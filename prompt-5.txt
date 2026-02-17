@@ -1,0 +1,24 @@
+TASK: Ensure Tailwind theme colors exist for these tokens used across components:
+primary, gold-accent, soft-white, charcoal-grey.
+
+If the project uses CSS variables:
+1) Add to src/index.css or globals.css:
+
+:root {
+  --primary: #0B1F3B;
+  --gold-accent: #C8A24A;
+  --soft-white: #F7F7F5;
+  --charcoal-grey: #1F242B;
+}
+
+2) Update tailwind.config.js/ts to map:
+colors: {
+  primary: "var(--primary)",
+  "gold-accent": "var(--gold-accent)",
+  "soft-white": "var(--soft-white)",
+  "charcoal-grey": "var(--charcoal-grey)"
+}
+
+Then confirm classes like bg-primary, bg-gold-accent, from-soft-white, text-charcoal-grey work.
+
+Return the exact code edits (file names + final snippets).
