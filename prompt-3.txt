@@ -1,0 +1,89 @@
+Create a NEW React + TypeScript component at:
+
+src/components/StampDutyCalculator.tsx
+
+Requirements:
+- Default export: StampDutyCalculator
+- TailwindCSS styling
+- shadcn/ui components:
+  Button, Input, Card
+  Tabs, TabsContent, TabsList, TabsTrigger
+- lucide-react icons: Calculator, ChevronDown, ChevronUp
+- No backend calls.
+
+Types:
+type StampDutyType = 'firsttime' | 'movinghome' | 'additional';
+
+Interfaces:
+interface StampDutyBand { min: number; max: number | null; rate: number; }
+interface StampDutyResult {
+  totalTax: number;
+  effectiveRate: number;
+  perBand: Array<{ band: string; rate: number; taxableAmount: number; tax: number; }>;
+}
+
+State:
+- purchasePrice: string
+- dutyType: StampDutyType (default 'movinghome')
+- showResults: boolean (default false)
+- expandedBand: boolean (default false)
+- results: StampDutyResult | null
+
+Helpers:
+- parseMoney(input: string): number (strip all except digits and dot, accept commas)
+- formatCurrency0(value:number): GBP 0 decimals en-GB
+
+Bands (England/NI):
+movinghome:
+  0-125000 @0
+  125001-250000 @2
+  250001-925000 @5
+  925001-1500000 @10
+  1500001+ @12
+additional:
+  0-125000 @5
+  125001-250000 @7
+  250001-925000 @10
+  925001-1500000 @15
+  1500001+ @17
+firsttime:
+  0-300000 @0
+  300001-500000 @5
+
+Rule:
+- If dutyType is firsttime and price > 500000 => use movinghome bands.
+
+Calculation:
+For each band:
+  bandMax = price if max is null else min(max, price)
+  taxableAmount = max(0, bandMax - min)
+  tax = taxableAmount * rate/100
+Label:
+  if max null -> "Over £{min}"
+  else -> "£{min} - £{max}"
+totalTax sum, effectiveRate = totalTax/price*100
+Store perBand only where taxableAmount>0 (or keep all if you prefer).
+
+UI:
+- Card layout.
+- Tabs for dutyType:
+  First-time buyer / Moving home / Additional property
+- Purchase price input.
+- Calculate button disabled if empty or price<=0
+- Reset button visible when showResults true
+- Results panel shows:
+  "Stamp Duty Land Tax (SDLT)"
+  Total tax (formatCurrency0)
+  Effective rate (toFixed(2)%)
+- Accordion breakdown:
+  toggle "Full calculation breakdown" using expandedBand
+  show table with: Tax Band | Rate % | Taxable Amount | Tax
+- Add "Important Notes" list:
+  Scotland LBTT, Wales LTT, non-UK resident surcharge note.
+
+Styling:
+- Inputs: h-12 bg-gray-50 border-gray-200 focus:border-gold-accent focus:ring-gold-accent/20
+- Primary button: bg-gold-accent text-primary
+- Results panel: bg-gradient-to-br from-gold-accent/10 to-primary/10 rounded-2xl p-8 border border-gold-accent/20
+
+Return ONLY the full code for src/components/StampDutyCalculator.tsx.
