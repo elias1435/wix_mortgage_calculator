@@ -1,0 +1,14 @@
+TASK: In HomePage.tsx, render the calculator section immediately AFTER the banner/hero section and BEFORE the next section.
+
+Option A (recommended): if you created FinancialCalculators:
+1) Add import:
+import FinancialCalculators from "@/components/FinancialCalculators";
+
+2) Find the hero/banner section in HomePage.tsx.
+Immediately after it ends, insert:
+<FinancialCalculators />
+
+Option B: if you want only one calculator:
+Insert <BorrowingCapacityCalculator /> or <BorrowingCalculator />.
+
+Return the updated HomePage.tsx code.
