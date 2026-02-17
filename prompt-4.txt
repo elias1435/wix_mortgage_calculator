@@ -1,0 +1,31 @@
+Create a NEW React + TypeScript component at:
+
+src/components/FinancialCalculators.tsx
+
+Goal:
+A single section that shows top-level Tabs:
+- Mortgage Calculator
+- Borrowing Calculator
+- Stamp Duty Calculator
+
+Implementation:
+- Import and render these three components (create them if missing):
+  MortgageCalculator from "@/components/MortgageCalculator"
+  BorrowingCapacityCalculator from "@/components/BorrowingCapacityCalculator"
+  StampDutyCalculator from "@/components/StampDutyCalculator"
+
+UI:
+- Wrap in:
+<section className="py-24 lg:py-32 bg-gradient-to-b from-soft-white to-white relative overflow-hidden">
+- Heading:
+  "Financial Calculators" (small label) and "Plan Your Finances"
+- Card container:
+  className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8 lg:p-12"
+- TabsList styled:
+  "bg-gray-100 p-1 rounded-lg"
+  active trigger:
+  "data-[state=active]:bg-white data-[state=active]:shadow-sm"
+
+Each TabsContent should render the appropriate component.
+
+Return ONLY the full code for src/components/FinancialCalculators.tsx.
