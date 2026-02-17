@@ -1,0 +1,69 @@
+Create a NEW React + TypeScript component at:
+
+src/components/BorrowingCapacityCalculator.tsx
+
+Requirements:
+- Default export: BorrowingCapacityCalculator
+- TailwindCSS styling
+- shadcn/ui components:
+  Button, Input, Card
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue from "@/components/ui/select"
+- lucide-react icon: Calculator
+- No backend calls.
+
+Types:
+type EmploymentType = 'employed' | 'self-employed' | 'director' | '';
+
+State:
+- employmentType: EmploymentType (default '')
+- salary: string
+- bonus: string (default "0")
+- showResults: boolean (default false)
+- borrowingCapacity: number (default 0)
+
+Employment options:
+- Employed (multiplier 6)
+- Self-employed (multiplier 6)
+- Company Director (multiplier 6)
+
+Logic:
+- salaryNum = parseFloat(salary)
+- bonusNum = parseFloat(bonus) || 0
+- adjustedIncome = salaryNum + bonusNum*0.5
+- borrowingCapacity = Math.round(adjustedIncome * 6)
+- showResults true after calculate
+
+Helpers inside same file:
+- formatCurrency0(value:number): GBP 0 decimals en-GB
+- formatCurrency(value:number): GBP 2 decimals en-GB
+
+UI:
+- Card layout:
+  className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8"
+- Two-column layout on lg:
+  left = form, right = results/placeholder.
+- Inputs:
+  Employment Type (Select)
+  Annual Salary (number)
+  Bonus (number, min 0)
+- Calculate button:
+  className="bg-gold-accent text-primary"
+  disabled if employmentType empty OR salary empty OR salaryNum<=0
+- Reset button appears only when showResults true; resets to initial state.
+- Results panel (when showResults true):
+  - "Your estimated borrowing capacity up to"
+  - Big GBP number (formatCurrency0)
+  - Summary lines: Employment Type label, Annual Salary (formatCurrency0), Bonus if >0
+  - Blue disclaimer box: estimate only; final depends on lender checks
+  - CTA button link:
+    https://www.safeguardmortgages.co.uk/contact
+    open in new tab (target="_blank" rel="noreferrer")
+- Placeholder when no results: Calculator icon + instructions.
+
+Input styling:
+"h-12 bg-gray-50 border-gray-200 focus:border-gold-accent focus:ring-gold-accent/20"
+
+Results panel styling:
+"bg-gradient-to-br from-gold-accent/10 to-primary/10 rounded-2xl p-8 border border-gold-accent/20"
+
+Return ONLY the full code for src/components/BorrowingCapacityCalculator.tsx.
